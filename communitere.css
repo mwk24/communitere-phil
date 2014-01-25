@@ -1,0 +1,24 @@
+/* CSS declarations go here */
+tr.message:hover {
+	cursor: pointer
+};
+
+div.debug {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+div.currentMessagePanel {
+  margin-top: 98px;
+}
+
+.status-done {
+  background-color: #5cb85c;
+}
+.status-inprogress {
+  background-color: #F2E2AB;
+}
+.current-msg {
+  background-color: #f0ad4e;
+}

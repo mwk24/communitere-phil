@@ -1,0 +1,116 @@
+<head>
+  <title>communitere</title>
+</head>
+
+<body>
+  {{> debug}}
+  {{> main}}
+</body>
+
+<template name="main">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>INBOX</h2>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Content</th>
+            <th>Callback number</th>
+            <th>Received</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          {{#each openMessages}}
+            <tr class="status-{{status}} message {{currentMsgClass}}">
+              <td>{{body}}</td>
+              <td>{{callback}}</td>
+              <td>{{received}}</td>
+              <td>{{status}}</td>
+            </tr>
+          {{/each}}
+
+          <tr><td></td></tr>
+
+          {{#each doneMessages}}
+            <tr class="status-{{status}} message">
+              <td>{{body}}</td>
+              <td>{{callback}}</td>
+              <td>{{received}}</td>
+              <td>{{status}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-6">
+        {{> currentMessage}}
+      </div>
+
+
+    </div>
+  </div>
+
+
+</template>
+
+<template name="currentMessage">
+
+  {{#with message}}
+
+  <div class="panel panel-default currentMessagePanel">
+    <div class="panel-body">
+      <h3>{{body}} <span class="label status-{{status}}">{{status}}</span></h3>
+
+      <hr />
+
+      <h4><span class="glyphicon glyphicon-earphone"></span> {{callback}}</h4>
+      
+      <hr />
+
+      <form>
+        <p>Notes <textarea name="notes" cols="60" rows="5">{{details.notes}}</textarea></p>
+        <hr />
+        <p>
+          Categories {{#each allCategories}}
+          <span class="label label-info category">{{this}}</span>{{/each}}
+        </p>
+        <p>
+          Agencies {{#each agencies}}
+          <span class="label label-default">{{agency}}</span>{{/each}}
+          <div class="input-group">
+          {{> agencyAutoComplete}}
+          </div>
+        </p>
+      <hr />
+      <p>
+        <button type="submit" class="btn btn-primary done">Done</button>
+      </p>
+      </form>
+
+    </div>
+  </div>
+
+  {{/with}}
+</template>
+
+<template name="agencyAutoComplete">
+  <span class="input-group-addon">Add...</span>
+  {{inputAutocomplete settings id="agencies" class="form-control" name="agency"}}
+</template>
+
+<template name="autoCompletePill">
+  <span class="label">{{name}}</span>
+</template>
+
+<template name="debug">
+  <div class="debug">
+    <p>
+      <button class="msgGen btn btn-default">Generate new message</button>
+      <button class="msgClear btn btn-default">Clear all messages</button>
+    </p>
+  </div>
+</template>
